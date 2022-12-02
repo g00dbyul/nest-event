@@ -1,11 +1,11 @@
 import {Module} from "@nestjs/common";
 import {DeliveryController} from "./delivery.controller";
+import {DeliveryEventListener} from "./delivery.event.listener";
 import {DeliveryService} from "./delivery.service";
-import {EventClientModule} from "../common/event-client/event-client.module";
 
 @Module({
-    imports: [EventClientModule],
+    imports: [],
     controllers: [DeliveryController],
-    providers: [DeliveryService]
+    providers: [DeliveryService, DeliveryEventListener]
 })
 export class DeliveryModule {}

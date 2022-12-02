@@ -1,11 +1,14 @@
 import {Module} from "@nestjs/common";
 import {StockController} from "./stock.controller";
+import {StockEventListener} from "./stock.event.listener";
 import {StockService} from "./stock.service";
-import {EventClientModule} from "../common/event-client/event-client.module";
 
 @Module({
-    imports: [EventClientModule],
+    imports: [],
     controllers: [StockController],
-    providers: [StockService]
+    providers: [
+        { provide: 'STOCK SERVICE', useClass: StockService },
+        { provide: 'STOCK EVENT LISTENER', useClass: StockEventListener },
+    ]
 })
 export class StockModule {}

@@ -1,13 +1,12 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { ClientProxy } from "@nestjs/microservices";
 import {connect} from "ts-nats";
 
-@Injectable()
 export class EventHelper {
-     static init() {
+     static init(subject:string, cb:any) {
         return connect({
             servers: ['nats://localhost:4222'],
             timeout: 1000,
+        }).then(client => {
+            client.subscribe(subject, cb)
         })
     }
 }

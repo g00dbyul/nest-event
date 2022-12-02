@@ -1,12 +1,16 @@
-import {Controller, Post} from "@nestjs/common";
+import {Controller, Inject, Post} from "@nestjs/common";
 import {StockService} from "./stock.service";
+import {EventHelper} from "../common/helper/event.helper";
 
-@Controller('stock')
+@Controller('/stock')
 export class StockController {
-    constructor(private readonly stockService: StockService) {}
+    constructor(
+        @Inject('STOCK SERVICE')
+        private readonly stockService: StockService,
+    ) {}
 
     @Post()
-    async modifyStock() {
-        return await this.stockService.modifyStock();
+    async modifyStock(data: any) {
+        return await this.stockService.modifyStock(data);
     }
 }
