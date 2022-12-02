@@ -1,8 +1,9 @@
+import {Controller, Inject} from "@nestjs/common";
 import {EventHelper} from "../common/helper/event.helper";
 import {StockService} from "./stock.service";
-import {Controller, Inject, Injectable} from "@nestjs/common";
+import {Message} from "../common/type/message";
 
-@Injectable()
+@Controller()
 export class StockEventListener {
     constructor(
         @Inject('STOCK SERVICE')
@@ -12,7 +13,7 @@ export class StockEventListener {
     }
 
     orderEventListener(stockService: StockService) {
-        return async (err, message) => {
+        return async (err, message: Message) => {
             console.log('=====Execute modify stock=====')
             if (err) {
                 throw new Error(err)
